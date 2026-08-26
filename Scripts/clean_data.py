@@ -15,6 +15,12 @@ github = github.drop_nulls()
 slack = slack.drop_nulls()
 ide = ide.drop_nulls()
 
+# Remove duplicate rows
+github = github.unique()
+slack = slack.unique()
+ide = ide.unique()
+
+
 # Save cleaned data
 github.write_csv("Data/Cleaned/github_events_cleaned.csv")
 slack.write_csv("Data/Cleaned/slack_events_cleaned.csv")
