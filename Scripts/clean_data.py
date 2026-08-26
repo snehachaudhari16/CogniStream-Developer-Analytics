@@ -45,3 +45,8 @@ print("\nMissing values after cleaning:")
 print("GitHub:", github.null_count())
 print("Slack:", slack.null_count())
 print("IDE:", ide.null_count())
+
+print("\nData type validation:")
+print(github.dtypes)
+print(slack.dtypes)
+print(ide.dtypes)
