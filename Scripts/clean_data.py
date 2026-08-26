@@ -40,3 +40,8 @@ print("\nData types:")
 print("GitHub:", github.schema)
 print("Slack:", slack.schema)
 print("IDE:", ide.schema)
+
+print("\nMissing values after cleaning:")
+print("GitHub:", github.null_count())
+print("Slack:", slack.null_count())
+print("IDE:", ide.null_count())
