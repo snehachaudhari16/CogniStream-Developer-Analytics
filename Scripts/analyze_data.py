@@ -42,3 +42,5 @@ print(
     .sort("total_minutes", descending=True)
     .head(10)
 )
+developer_summary.write_csv("Data/final_developer_analytics.csv")
+print("Final developer analytics saved successfully.")
