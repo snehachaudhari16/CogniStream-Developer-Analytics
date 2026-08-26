@@ -35,3 +35,8 @@ print("Data cleaning completed successfully!")
 print("GitHub rows:", github.height)
 print("Slack rows:", slack.height)
 print("IDE rows:", ide.height)
+
+print("\nData types:")
+print("GitHub:", github.schema)
+print("Slack:", slack.schema)
+print("IDE:", ide.schema)
