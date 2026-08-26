@@ -13,6 +13,10 @@ print(slack.head())
 print("IDE Data:")
 print(ide.head())
 
+print("GitHub rows:", github.height)
+print("Slack rows:", slack.height)
+print("IDE rows:", ide.height)
+
 print("\nDataset Shapes:")
 print("GitHub:", github.shape)
 print("Slack:", slack.shape)
