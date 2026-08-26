@@ -5,6 +5,10 @@ github = pl.read_csv("Data/Raw/github_events.csv")
 slack = pl.read_csv("Data/Raw/slack_events.csv")
 ide = pl.read_csv("Data/Raw/ide_activity.csv")
 
+print("GitHub duplicate rows:", github.height - github.unique().height)
+print("Slack duplicate rows:", slack.height - slack.unique().height)
+print("IDE duplicate rows:", ide.height - ide.unique().height)
+
 # Remove duplicate rows
 github = github.unique()
 slack = slack.unique()
