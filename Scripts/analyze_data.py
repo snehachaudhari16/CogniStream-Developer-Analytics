@@ -42,5 +42,93 @@ print(
     .sort("total_minutes", descending=True)
     .head(10)
 )
+
+# Create final developer summary
+github_summary = (
+    github.group_by("developer_id")
+    .agg(pl.len().alias("github_activity"))
+)
+
+slack_summary = (
+    slack.group_by("developer_id")
+    .agg(pl.len().alias("slack_activity"))
+)
+
+ide_summary = (
+    ide.group_by("developer_id")
+    .agg([
+        pl.len().alias("ide_activity"),
+        pl.col("duration_minutes").sum().alias("total_coding_minutes")
+    ])
+)
+
+developer_summary = (
+    github_summary
+    .join(
+        slack_summary,
+        on="developer_id",
+        how="full",
+        coalesce=True
+    )
+    .join(
+        ide_summary,
+        on="developer_id",
+        how="full",
+        coalesce=True
+    )
+    .fill_null(0)
+)
 developer_summary.write_csv("Data/final_developer_analytics.csv")
+
 print("Final developer analytics saved successfully.")
+
+
+developer_summary = (
+    github_summary
+    .join(
+        slack_summary,
+        on="developer_id",
+        how="full",
+        coalesce=True
+    )
+    .join(
+        ide_summary,
+        on="developer_id",
+        how="full",
+        coalesce=True
+    )
+    .fill_null(0)
+    .with_columns(
+        (
+            pl.col("github_activity")
+            + pl.col("slack_activity")
+            + pl.col("ide_activity")
+        ).alias("total_activity")
+    )
+)
+
+developer_summary.write_csv(
+    "Data/final_developer_analytics.csv"
+)
+
+print("Final developer analytics saved successfully.")
+
+activity_columns = [
+    "github_activity",
+    "slack_activity",
+    "ide_activity",
+    "total_activity"
+]
+print("\nDeveloper Summary:")
+print(developer_summary)
+
+print("\nColumns:")
+print(developer_summary.columns)
+
+print("\nShape:")
+print(developer_summary.shape)
+
+
+
+
+
